@@ -55,15 +55,6 @@ const TrackSection = styled.div`
     height: 50px;
     border-radius: 5px;
   }
-  p,
-  h3 {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
   h3 {
     margin-bottom: 0;
   }
@@ -79,12 +70,18 @@ const TrackSection = styled.div`
   }
 `;
 
-const TracksList = ({ tracks }) => {
+const TracksList = ({ tracks, setIsPlaying, setCurrentSong }) => {
   const tracksList = tracks.map((item, index) => {
     return (
       <TrackSection key={index}>
         <div className="info-container">
-          <div className="image-container">
+          <div
+            className="image-container"
+            onClick={() => {
+              setCurrentSong(tracks[index]);
+              setIsPlaying(true);
+            }}
+          >
             <img src={item.image} alt="image" />
             <svg
               width="16"

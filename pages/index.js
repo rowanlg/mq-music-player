@@ -1,14 +1,19 @@
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styled from "styled-components";
 import TracksList from "../components/TracksList";
-// import Logo from "../public/logo.png";
+import PlayIcon from "../components/PlayIcon";
+import PauseIcon from "../components/PauseIcon";
+import VolumeOnIcon from "../components/VolumeOnIcon";
+import VolumeOffIcon from "../components/VolumeOffIcon";
+import NextIcon from "../components/NextIcon";
+import BackIcon from "../components/BackIcon";
 
 const Container = styled.div`
   padding: 0 2rem;
   max-height: 100vh;
   height: 100vh;
-  /* overflow: hidden; */
 `;
 
 const Main = styled.main`
@@ -41,6 +46,11 @@ const Main = styled.main`
         font-weight: 400;
         opacity: 0.8;
       }
+      svg {
+        margin-top: 20px;
+        cursor: pointer;
+        z-index: 100;
+      }
       .image-container {
         padding: 10px;
         border-radius: 5px;
@@ -50,6 +60,43 @@ const Main = styled.main`
           height: 300px;
           border-radius: 5px;
         }
+      }
+      .progress-container {
+        display: flex;
+        p {
+          font-size: 14px;
+          margin: 12px 10px 0 0;
+        }
+        .progress-bar {
+          position: relative;
+          margin: 20px auto;
+          width: 250px;
+          height: 2px;
+          border-radius: 2px;
+          background-color: white;
+          .progress-ball {
+            position: absolute;
+            top: -4px;
+            width: 11px;
+            height: 11px;
+            border-radius: 10px;
+            background-color: white;
+          }
+        }
+        .volume-icon {
+          margin: -19px 0 0 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .controls {
+        margin: auto;
+        width: 90px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
       }
     }
   }
@@ -62,50 +109,71 @@ export default function Home() {
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/1.%20Home.wav?alt=media&token=476ac8d4-3640-4ae7-a575-6470fd50c18a",
     },
     {
       name: "Sorry",
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/2.%20Sorry.wav?alt=media&token=170cb231-7d83-408b-8514-61ec49d1e584",
     },
     {
       name: "Numa",
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/3.%20Numa.wav?alt=media&token=813c2bd2-d2ee-479c-b444-e74e2fbdaf1e",
     },
     {
       name: "Weirder",
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/4.%20Weirder.wav?alt=media&token=a2553f46-775b-4f71-92f5-8fc84167bc60",
     },
     {
-      name: "Home",
+      name: "Trains",
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/5.%20Trains.wav?alt=media&token=24007e44-b1c4-4129-8bd5-7c9b3ae8c114",
     },
     {
-      name: "Sorry",
+      name: "Fly",
       release: "Home EP",
       image:
         "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
-    },
-    {
-      name: "Numa",
-      release: "Home EP",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
-    },
-    {
-      name: "Weirder",
-      release: "Home EP",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+      audio:
+        "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/6.%20Fly.wav?alt=media&token=36b987ad-8894-456c-939e-a8d971f86498",
     },
   ];
+
+  const audioElement = React.useRef(null);
+  const [currentSong, setCurrentSong] = React.useState(tracks[3]);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [duration, setDuration] = React.useState(180);
+  const [secondsElapsed, setSecondsElapsed] = React.useState(0);
+  const [muted, setMuted] = React.useState(false);
+
+  React.useEffect(() => {
+    setDuration(audioElement.current.duration);
+    isPlaying ? audioElement.current.play() : audioElement.current.pause();
+  }, [isPlaying, currentSong]);
+
+  function timeCalculation(seconds) {
+    const m = Math.floor((seconds % 3600) / 60).toString();
+    const s = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0");
+
+    return m + ":" + s;
+  }
 
   return (
     <Container>
@@ -118,61 +186,68 @@ export default function Home() {
       <Main>
         <div className="side-container">
           <Image src="/logo.png" alt="logo" width="200" height="200" />
-          {/* <img src={Logo} alt="logo" /> */}
-          <TracksList tracks={tracks} />
+          <TracksList
+            tracks={tracks}
+            setIsPlaying={setIsPlaying}
+            setCurrentSong={setCurrentSong}
+          />
         </div>
         <div className="main-container">
           <div className="main-content">
             <div className="image-container">
-              <img src={tracks[0].image} alt="image" />
+              <img src={currentSong.image} alt="image" />
             </div>
-            <h4>Sorry</h4>
-            <p>Home EP</p>
+            <h4>{currentSong.name}</h4>
+            <p>{currentSong.release}</p>
             <p>Maha Quest</p>
+            <div className="progress-container">
+              <p>{timeCalculation(secondsElapsed)}</p>
+              <div className="progress-bar">
+                <div
+                  className="progress-ball"
+                  style={{ left: `${(240 / duration) * secondsElapsed}px` }}
+                />
+              </div>
+              <div
+                className="volume-icon"
+                onClick={() => {
+                  setMuted(!muted);
+                }}
+              >
+                {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
+              </div>
+            </div>
+            <div className="controls">
+              <div
+                onClick={() => {
+                  // setCurrentSong(tracks[tracks.indexOf(currentSong) - 1]);
+                }}
+              >
+                <BackIcon />
+              </div>
+              <div
+                onClick={() => {
+                  setIsPlaying(!isPlaying);
+                }}
+              >
+                {isPlaying ? <PauseIcon /> : <PlayIcon />}
+              </div>
+              <div>
+                <NextIcon />
+              </div>
+            </div>
+            <audio
+              ref={audioElement}
+              controls
+              muted={muted}
+              src={currentSong.audio}
+              onTimeUpdate={() => {
+                setSecondsElapsed(audioElement.current.currentTime);
+              }}
+            ></audio>
           </div>
         </div>
       </Main>
-
-      {/* <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main> */}
 
       {/* <footer className={styles.footer}>
         <a
