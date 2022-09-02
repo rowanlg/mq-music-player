@@ -19,8 +19,8 @@ const NextIcon = () => {
         x2="16"
         y2="12"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );

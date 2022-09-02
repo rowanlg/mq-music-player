@@ -15,8 +15,8 @@ const PauseIcon = () => {
         x2="2"
         y2="12"
         stroke="white"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
       <line
         x1="9"
@@ -24,8 +24,8 @@ const PauseIcon = () => {
         x2="9"
         y2="12"
         stroke="white"
-        stroke-width="4"
-        stroke-linecap="round"
+        strokeWidth="4"
+        strokeLinecap="round"
       />
     </svg>
   );

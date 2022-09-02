@@ -19,8 +19,8 @@ const BackIcon = () => {
         x2="2"
         y2="4"
         stroke="white"
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
       />
     </svg>
   );

@@ -1,0 +1,135 @@
+[
+  {
+    "name": "Best Shot",
+    "release": "Unreleased",
+    "year": "2022",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Headshot%201.JPG?alt=media&token=54d66e87-cfb8-4410-8b83-3a14852757f2",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/mahaquest%20-%20bestshot.mp3?alt=media&token=faf2bdf2-6c0d-4384-a061-dab2f5a91f57"
+  },
+  {
+    "name": "Innocence (Bootleg Flip)",
+    "release": "Unreleased",
+    "year": "2022",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Headshot%201.JPG?alt=media&token=54d66e87-cfb8-4410-8b83-3a14852757f2",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Innocence%20(Maha%20Flip).mp3?alt=media&token=59db1844-8d5c-4d90-8468-7e94a40f23b5"
+  },
+  {
+    "name": "Wildfire (DnB Remix)",
+    "release": "Unreleased",
+    "year": "2022",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Headshot%201.JPG?alt=media&token=54d66e87-cfb8-4410-8b83-3a14852757f2",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Wildfire%20(Maha%20Quest%20RMX).mp3?alt=media&token=4b7a893c-4b02-4053-a1a2-9b577f7d881c"
+  },
+  {
+    "name": "Junglist (DnB Remix)",
+    "release": "Unreleased",
+    "year": "2022",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Headshot%201.JPG?alt=media&token=54d66e87-cfb8-4410-8b83-3a14852757f2",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Junglist%20(Maha%20Quest%20Remix).mp3?alt=media&token=4a004f1e-4f78-4b2e-bc01-a98fd95226e6"
+  },
+  {
+    "name": "Fela Kuti - Lady (Maha Quest Remix)",
+    "release": "Unreleased",
+    "year": "2022",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Headshot%201.JPG?alt=media&token=54d66e87-cfb8-4410-8b83-3a14852757f2",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/121%20Fela%20Kuti%20-%20Lady%20(Maha%20Funky%20Haus%20RMX).mp3?alt=media&token=9f9b8f66-f654-494c-a566-df45457a5971"
+  },
+  {
+    "name": "Home",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/1.%20Home.wav?alt=media&token=476ac8d4-3640-4ae7-a575-6470fd50c18a"
+  },
+  {
+    "name": "Sorry",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/2.%20Sorry.wav?alt=media&token=170cb231-7d83-408b-8514-61ec49d1e584"
+  },
+  {
+    "name": "Numa",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/3.%20Numa.wav?alt=media&token=813c2bd2-d2ee-479c-b444-e74e2fbdaf1e"
+  },
+  {
+    "name": "Weirder",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/4.%20Weirder.wav?alt=media&token=a2553f46-775b-4f71-92f5-8fc84167bc60"
+  },
+  {
+    "name": "Trains",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/5.%20Trains.wav?alt=media&token=24007e44-b1c4-4129-8bd5-7c9b3ae8c114"
+  },
+  {
+    "name": "Fly",
+    "release": "Home EP",
+    "year": "2021",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha_Quest_Home_EP_Artwork.jpg?alt=media&token=db900d0a-16c5-4278-afea-791877615e22",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/6.%20Fly.wav?alt=media&token=36b987ad-8894-456c-939e-a8d971f86498"
+  },
+  {
+    "name": "Hexx",
+    "release": "Hexx EP",
+    "year": "2019",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Hexx%20EP%20Final.jpg?alt=media&token=89a99b2b-8021-4a78-af64-6e9e6c8efdac",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha%20Quest%20-%20Hexx.mp3?alt=media&token=eca09c93-7a55-4345-b1ab-b291a6b1b698"
+  },
+  {
+    "name": "Good To Me",
+    "release": "Hexx EP",
+    "year": "2019",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Hexx%20EP%20Final.jpg?alt=media&token=89a99b2b-8021-4a78-af64-6e9e6c8efdac",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Maha%20Quest%20-%20Good%20To%20Me%20feat.%20Maha%20%26%20Doro.mp3?alt=media&token=591a2a01-fb4a-4daf-8f92-0e7a43a6d1fb"
+  },
+  {
+    "name": "Sundari",
+    "release": "Sundari Visions EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Sundari%20visions%20art.png?alt=media&token=72b0fe46-bf58-40d4-a468-429a03b6cfc3",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/01%20Sundari.mp3?alt=media&token=1d185193-0c80-42f1-a155-f96788bbb4c5"
+  },
+  {
+    "name": "Visions",
+    "release": "Sundari Visions EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/Sundari%20visions%20art.png?alt=media&token=72b0fe46-bf58-40d4-a468-429a03b6cfc3",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/02%20Visions.mp3?alt=media&token=256ff728-9b65-4cc4-82fa-c2b5c006a575"
+  },
+  {
+    "name": "Doctor Fumu",
+    "release": "Parallels EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/MAHA%20QUEST%20-%20Parallels%20EP%20Artwork%20-%20Lo%20Res%20-%20by%20Aidy%20Brooks.jpg?alt=media&token=3a8983d8-3ac1-463d-83c2-e55dfbf1cb89",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/1.%20Doctor%20Fumu%20-Masterv2-16bit.wav?alt=media&token=d7fcb339-ea89-4b41-83ea-2fcd7fe9b5d8"
+  },
+  {
+    "name": "Parallels",
+    "release": "Parallels EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/MAHA%20QUEST%20-%20Parallels%20EP%20Artwork%20-%20Lo%20Res%20-%20by%20Aidy%20Brooks.jpg?alt=media&token=3a8983d8-3ac1-463d-83c2-e55dfbf1cb89",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/2.%20Parallels%20-Masterv2-16bit.wav?alt=media&token=141aa2e3-9213-4a1a-9431-53a459cea9cd"
+  },
+  {
+    "name": "Can't Anybody See",
+    "release": "Parallels EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/MAHA%20QUEST%20-%20Parallels%20EP%20Artwork%20-%20Lo%20Res%20-%20by%20Aidy%20Brooks.jpg?alt=media&token=3a8983d8-3ac1-463d-83c2-e55dfbf1cb89",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/110%208A%20Maha%20-%20Can't%20Anybody%20See-Masterv1-16bit.wav?alt=media&token=2c9ef1a6-0648-4a12-9893-3189162cecb8"
+  },
+  {
+    "name": "Hussy",
+    "release": "Parallels EP",
+    "year": "2018",
+    "image": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/MAHA%20QUEST%20-%20Parallels%20EP%20Artwork%20-%20Lo%20Res%20-%20by%20Aidy%20Brooks.jpg?alt=media&token=3a8983d8-3ac1-463d-83c2-e55dfbf1cb89",
+    "audio": "https://firebasestorage.googleapis.com/v0/b/maha-quest-music-player.appspot.com/o/127%206A%2004%204.%20Hussy-Masterv1-16bit%20Gmin.wav?alt=media&token=c852aeb4-cedf-4379-8408-bf136427a9f9"
+  }
+]

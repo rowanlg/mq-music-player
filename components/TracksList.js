@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const TracksListContainer = styled.div`
   /* border: 1px solid red; */
-  width: 250px;
+  width: 300px;
   background-color: #111111;
   padding: 5px 30px;
   overflow-y: scroll;
@@ -63,14 +63,19 @@ const TrackSection = styled.div`
     opacity: 0.8;
   }
   .line-break {
-    width: 140px;
+    width: 180px;
     height: 1px;
     background-color: #5f5f5f;
     border-radius: 5px;
   }
 `;
 
-const TracksList = ({ tracks, setIsPlaying, setCurrentSong }) => {
+const TracksList = ({
+  tracks,
+  setIsPlaying,
+  setCurrentSong,
+  setSecondsElapsed,
+}) => {
   const tracksList = tracks.map((item, index) => {
     return (
       <TrackSection key={index}>
@@ -79,6 +84,7 @@ const TracksList = ({ tracks, setIsPlaying, setCurrentSong }) => {
             className="image-container"
             onClick={() => {
               setCurrentSong(tracks[index]);
+              setSecondsElapsed(0);
               setIsPlaying(true);
             }}
           >
