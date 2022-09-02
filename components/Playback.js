@@ -1,11 +1,171 @@
 import React from "react";
-import PlayIcon from "../components/PlayIcon";
-import PauseIcon from "../components/PauseIcon";
-import VolumeOnIcon from "../components/VolumeOnIcon";
-import VolumeOffIcon from "../components/VolumeOffIcon";
-import NextIcon from "../components/NextIcon";
-import BackIcon from "../components/BackIcon";
 import styled from "styled-components";
+import BackButton from "./BackButton";
+import {
+  PlayIcon,
+  PauseIcon,
+  VolumeOnIcon,
+  VolumeOffIcon,
+  NextIcon,
+  BackIcon,
+  RepeatIcon,
+  ShuffleIcon,
+} from "./Icons";
+import NextButton from "./NextButton";
+
+const Playback = ({
+  duration,
+  setDuration,
+  muted,
+  setMuted,
+  isPlaying,
+  setIsPlaying,
+  currentSong,
+  setCurrentSong,
+  secondsElapsed,
+  setSecondsElapsed,
+  tracks,
+  isShuffled,
+  setIsShuffled,
+}) => {
+  const audioElement = React.useRef(null);
+  const [shuffledTracks, setShuffledTracks] = React.useState([]);
+
+  React.useEffect(() => {
+    isPlaying ? audioElement.current.play() : audioElement.current.pause();
+    const timeout = setTimeout(() => {
+      setDuration(audioElement.current.duration);
+    }, 1000);
+    return () => clearTimeout(timeout);
+  }, [isPlaying, currentSong]);
+
+  React.useEffect(() => {
+    setShuffledTracks(
+      [...tracks].sort(function (a, b) {
+        return 0.5 - Math.random();
+      })
+    );
+    // console.log("TRIGGERED");
+  }, [isShuffled]);
+
+  function timeCalculation(seconds) {
+    const m = Math.floor((seconds % 3600) / 60).toString();
+    const s = Math.floor(seconds % 60)
+      .toString()
+      .padStart(2, "0");
+    return m + ":" + s;
+  }
+
+  return (
+    <MainContainer>
+      <div
+        className="main-content"
+        style={currentSong == {} ? { opacity: 0 } : { opacity: 1 }}
+      >
+        <div className="image-container">
+          <img src={currentSong.image} alt="image" />
+        </div>
+        <h4>{currentSong.name}</h4>
+        <p>{currentSong.release}</p>
+        <p>Maha Quest</p>
+
+        {/* //////// Progress bar //////// */}
+        <div className="progress-container">
+          <p>{timeCalculation(secondsElapsed)}</p>
+          <div className="progress-bar">
+            <div
+              className="progress-ball"
+              style={{ left: `${(240 / duration) * secondsElapsed}px` }}
+            />
+          </div>
+          <div
+            className="volume-icon"
+            onClick={() => {
+              setMuted(!muted);
+            }}
+          >
+            {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
+          </div>
+        </div>
+
+        {/* //////// Controls section //////// */}
+        <div className="controls">
+          <div className="repeat-button">
+            <RepeatIcon />
+          </div>
+          <BackButton
+            isShuffled={isShuffled}
+            shuffledTracks={shuffledTracks}
+            currentSong={currentSong}
+            setCurrentSong={setCurrentSong}
+            setDuration={setDuration}
+            tracks={tracks}
+            setSecondsElapsed={setSecondsElapsed}
+            audioElement={audioElement}
+          />
+          <div
+            onClick={() => {
+              setIsPlaying(!isPlaying);
+            }}
+          >
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </div>
+          <NextButton
+            isShuffled={isShuffled}
+            shuffledTracks={shuffledTracks}
+            currentSong={currentSong}
+            setCurrentSong={setCurrentSong}
+            setDuration={setDuration}
+            tracks={tracks}
+            setSecondsElapsed={setSecondsElapsed}
+            audioElement={audioElement}
+          />
+          <div
+            className="shuffle-button"
+            onClick={() => {
+              setIsShuffled(!isShuffled);
+              console.log(isShuffled);
+            }}
+            style={isShuffled ? { opacity: 1 } : { opacity: 0.6 }}
+          >
+            <ShuffleIcon />
+          </div>
+        </div>
+
+        {/* //////// AUDIO COMPONENT //////// */}
+        <audio
+          // controls
+          ref={audioElement}
+          muted={muted}
+          src={currentSong.audio}
+          controlsList="nodownload"
+          onTimeUpdate={() => {
+            setSecondsElapsed(audioElement.current.currentTime);
+          }}
+          onEnded={() => {
+            if (isShuffled) {
+              setCurrentSong(tracks[Math.floor(Math.random() * tracks.length)]);
+              setSecondsElapsed(0);
+              setDuration(audioElement.current.duration);
+            } else {
+              if (tracks.indexOf(currentSong) < tracks.length - 1) {
+                setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
+                setSecondsElapsed(0);
+                setDuration(audioElement.current.duration);
+              } else {
+                setCurrentSong(tracks[0]);
+                setSecondsElapsed(0);
+                setDuration(audioElement.current.duration);
+              }
+            }
+          }}
+        />
+      </div>
+    </MainContainer>
+  );
+};
+
+export default Playback;
 
 const MainContainer = styled.div`
   grid-area: main;
@@ -31,11 +191,11 @@ const MainContainer = styled.div`
       z-index: 100;
     }
     .image-container {
-      padding: 10px;
-      width: 320px;
-      height: 320px;
+      padding: 15px;
+      width: 330px;
+      height: 330px;
       border-radius: 5px;
-      background-color: #111111;
+      background-color: #000000;
       img {
         width: 300px;
         height: 300px;
@@ -73,7 +233,7 @@ const MainContainer = styled.div`
     }
     .controls {
       margin: auto;
-      width: 90px;
+      width: 140px;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -81,123 +241,12 @@ const MainContainer = styled.div`
       div {
         cursor: pointer;
       }
+      .repeat-button {
+        margin-right: 10px;
+      }
+      .shuffle-button {
+        margin-left: 10px;
+      }
     }
   }
 `;
-
-const Playback = ({
-  duration,
-  setDuration,
-  muted,
-  setMuted,
-  isPlaying,
-  setIsPlaying,
-  currentSong,
-  setCurrentSong,
-  secondsElapsed,
-  setSecondsElapsed,
-  loading,
-  tracks,
-}) => {
-  const audioElement = React.useRef(null);
-
-  React.useEffect(() => {
-    isPlaying ? audioElement.current.play() : audioElement.current.pause();
-    const timeout = setTimeout(() => {
-      setDuration(audioElement.current.duration);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [isPlaying, currentSong]);
-
-  function timeCalculation(seconds) {
-    const m = Math.floor((seconds % 3600) / 60).toString();
-    const s = Math.floor(seconds % 60)
-      .toString()
-      .padStart(2, "0");
-    return m + ":" + s;
-  }
-
-  console.log(duration);
-
-  return (
-    <MainContainer>
-      <div
-        className="main-content"
-        style={currentSong == {} ? { opacity: 0 } : { opacity: 1 }}
-      >
-        <div className="image-container">
-          <img src={currentSong.image} alt="image" />
-        </div>
-        <h4>{currentSong.name}</h4>
-        <p>{currentSong.release}</p>
-        <p>Maha Quest</p>
-        <div className="progress-container">
-          <p>{timeCalculation(secondsElapsed)}</p>
-          <div className="progress-bar">
-            <div
-              className="progress-ball"
-              style={{ left: `${(240 / duration) * secondsElapsed}px` }}
-            />
-          </div>
-          <div
-            className="volume-icon"
-            onClick={() => {
-              setMuted(!muted);
-            }}
-          >
-            {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
-          </div>
-        </div>
-        <div className="controls">
-          <div
-            onClick={() => {
-              if (tracks.indexOf(currentSong) > 0) {
-                setCurrentSong(tracks[tracks.indexOf(currentSong) - 1]);
-                setSecondsElapsed(0);
-                setDuration(audioElement.current.duration);
-              }
-            }}
-          >
-            <BackIcon />
-          </div>
-          <div
-            onClick={() => {
-              setIsPlaying(!isPlaying);
-            }}
-          >
-            {isPlaying ? <PauseIcon /> : <PlayIcon />}
-          </div>
-          <div
-            onClick={() => {
-              if (tracks.indexOf(currentSong) < tracks.length - 1) {
-                setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
-                setSecondsElapsed(0);
-                setDuration(audioElement.current.duration);
-              }
-            }}
-          >
-            <NextIcon />
-          </div>
-        </div>
-        <audio
-          // controls
-          ref={audioElement}
-          muted={muted}
-          src={currentSong.audio}
-          onTimeUpdate={() => {
-            setSecondsElapsed(audioElement.current.currentTime);
-          }}
-          onEnded={() => {
-            if (tracks.indexOf(currentSong) < tracks.length - 1) {
-              setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
-              setSecondsElapsed(0);
-              setDuration(audioElement.current.duration);
-            }
-          }}
-        ></audio>
-      </div>
-    </MainContainer>
-  );
-};
-
-export default Playback;
