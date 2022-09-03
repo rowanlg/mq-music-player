@@ -4,7 +4,9 @@ import BackButton from "./BackButton";
 import {
   PlayIcon,
   PauseIcon,
-  VolumeOnIcon,
+  VolumeHighIcon,
+  VolumeMidIcon,
+  VolumeLowIcon,
   VolumeOffIcon,
   RepeatIcon,
   ShuffleIcon,
@@ -31,6 +33,7 @@ const Playback = ({
   const volumeBar = React.useRef(null);
   const [shuffledTracks, setShuffledTracks] = React.useState([]);
   const [volumeShow, setVolumeShow] = React.useState(false);
+  const [volumeValue, setVolumeValue] = React.useState(1);
 
   React.useEffect(() => {
     isPlaying ? audioElement.current.play() : audioElement.current.pause();
@@ -110,16 +113,28 @@ const Playback = ({
               <div
                 className="volume-icon"
                 onClick={() => {
-                  setMuted(!muted);
-                  setVolumeShow(false);
                   if (muted) {
+                    setMuted(false);
+                    setVolumeValue(1);
                     volumeBar.current.value = 1;
+                    audioElement.current.volume = 1;
                   } else {
+                    setMuted(true);
+                    setVolumeValue(0);
                     volumeBar.current.value = 0;
+                    audioElement.current.volume = 0;
                   }
                 }}
               >
-                {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
+                {muted ? (
+                  <VolumeOffIcon />
+                ) : volumeValue > 0.7 ? (
+                  <VolumeHighIcon />
+                ) : volumeValue > 0.4 ? (
+                  <VolumeMidIcon />
+                ) : (
+                  <VolumeLowIcon />
+                )}
               </div>
               <input
                 className="volume-bar"
@@ -132,11 +147,14 @@ const Playback = ({
                 orient="vertical"
                 onChange={() => {
                   audioElement.current.volume = volumeBar.current.value;
+                  setVolumeValue(volumeBar.current.value);
                   if (audioElement.current.volume == 0) {
                     setMuted(true);
                   } else {
                     setMuted(false);
                   }
+                  // setVolumeValue(volumeBar.current.value);
+                  // audioElement.current.volume = volumeValue;
                 }}
                 style={volumeShow ? { height: "100px", opacity: 1 } : {}}
                 onMouseLeave={() => {
@@ -284,8 +302,9 @@ const MainContainer = styled.div`
       }
       .volume-container {
         /* border: 1px solid red; */
-        margin: -18px 0 0 7px;
+        margin: -21px 0 0 7px;
         width: 40px;
+        height: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -301,7 +320,9 @@ const MainContainer = styled.div`
         cursor: pointer;
         writing-mode: bt-lr;
         -webkit-appearance: slider-vertical;
+        appearance: slider-vertical;
         z-index: 5;
+        background: #a5a5a5;
         /* display: none; */
       }
       .volume-icon {
@@ -310,85 +331,64 @@ const MainContainer = styled.div`
       .progress-bar {
         input[type="range"] {
           -webkit-appearance: none;
-          /* overflow: hidden; */
-          margin: 18px 0;
+          appearance: none;
           width: 275px;
           border-radius: 5px;
-          /* background: #9a905d; */
+          cursor: pointer;
+          background: transparent;
         }
         input[type="range"]:focus {
           outline: none;
         }
+
+        /* Chrome and Safari */
         input[type="range"]::-webkit-slider-runnable-track {
-          width: 100%;
-          height: 8.4px;
-          cursor: pointer;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-          background: #a5a5a5;
+          background-color: #a5a5a5;
           border-radius: 5px;
-          border: 0.2px solid #010101;
+          height: 8.4px;
         }
         input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          margin-top: -4px;
           height: 16px;
           width: 16px;
           border-radius: 10px;
           background: #ffffff;
-          cursor: pointer;
-          -webkit-appearance: none;
-          margin-top: -4px;
+          /* cursor: pointer; */
+        }
+        input[type="range"]:focus::-webkit-slider-thumb {
+          /* outline: 2px solid #3093cb; */
+          height: 18px;
+          width: 18px;
+          margin-top: -5px;
         }
         input[type="range"]:focus::-webkit-slider-runnable-track {
-          background: #a5a5a5;
+          background: #cacaca;
         }
+
+        /* Firefox */
         input[type="range"]::-moz-range-track {
-          width: 100%;
-          height: 8.4px;
-          cursor: pointer;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-          background: #a5a5a5;
+          background-color: #a5a5a5;
           border-radius: 5px;
-          border: 0.2px solid #010101;
+          height: 8.4px;
         }
         input[type="range"]::-moz-range-thumb {
+          border: none;
+          margin-top: -4px;
           height: 16px;
           width: 16px;
           border-radius: 10px;
           background: #ffffff;
-          cursor: pointer;
         }
-        input[type="range"]::-ms-track {
-          width: 100%;
-          height: 8.4px;
-          cursor: pointer;
-          background: transparent;
-          border-color: transparent;
-          border-width: 16px 0;
-          color: transparent;
+        input[type="range"]:focus::-moz-range-track {
+          background: #cacaca;
         }
-        input[type="range"]::-ms-fill-lower {
-          background: #a5a5a5;
-          border: 0.2px solid #010101;
-          border-radius: 5px;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        }
-        input[type="range"]::-ms-fill-upper {
-          background: #a5a5a5;
-          border: 0.2px solid #010101;
-          border-radius: 5px;
-          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        }
-        input[type="range"]::-ms-thumb {
-          height: 16px;
-          width: 16px;
-          border-radius: 10px;
-          background: #ffffff;
-          cursor: pointer;
-        }
-        input[type="range"]:focus::-ms-fill-lower {
-          background: #a5a5a5;
-        }
-        input[type="range"]:focus::-ms-fill-upper {
-          background: #a5a5a5;
+
+        input[type="range"]:focus::-moz-range-thumb {
+          height: 18px;
+          width: 18px;
+          margin-top: -5px;
         }
       }
     }
