@@ -78,12 +78,6 @@ const Playback = ({
           <div className="timing-container">
             <p>{timeCalculation(secondsElapsed)}</p>
           </div>
-          {/* <div className="progress-bar" ref={progressRef}>
-            <div
-              className="progress-ball"
-              style={{ left: `${(250 / duration) * secondsElapsed}px` }}
-            />
-          </div> */}
           <div className="progress-bar">
             <input
               className="progress-bar-input"
