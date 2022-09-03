@@ -101,8 +101,8 @@ export const NextIcon = () => {
 export const VolumeOnIcon = () => {
   return (
     <svg
-      width="20"
-      height="20"
+      width="22"
+      height="22"
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -125,8 +125,8 @@ export const VolumeOnIcon = () => {
 export const VolumeOffIcon = () => {
   return (
     <svg
-      width="21"
-      height="14"
+      width="22"
+      height="15"
       viewBox="0 0 20 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

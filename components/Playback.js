@@ -6,8 +6,6 @@ import {
   PauseIcon,
   VolumeOnIcon,
   VolumeOffIcon,
-  NextIcon,
-  BackIcon,
   RepeatIcon,
   ShuffleIcon,
 } from "./Icons";
@@ -29,12 +27,16 @@ const Playback = ({
   setIsShuffled,
 }) => {
   const audioElement = React.useRef(null);
+  const progressBar = React.useRef(null);
+  const volumeBar = React.useRef(null);
   const [shuffledTracks, setShuffledTracks] = React.useState([]);
+  const [volumeShow, setVolumeShow] = React.useState(false);
 
   React.useEffect(() => {
     isPlaying ? audioElement.current.play() : audioElement.current.pause();
     const timeout = setTimeout(() => {
       setDuration(audioElement.current.duration);
+      // setDuration(222);
     }, 1000);
     return () => clearTimeout(timeout);
   }, [isPlaying, currentSong]);
@@ -45,7 +47,6 @@ const Playback = ({
         return 0.5 - Math.random();
       })
     );
-    // console.log("TRIGGERED");
   }, [isShuffled]);
 
   function timeCalculation(seconds) {
@@ -71,20 +72,78 @@ const Playback = ({
 
         {/* //////// Progress bar //////// */}
         <div className="progress-container">
-          <p>{timeCalculation(secondsElapsed)}</p>
-          <div className="progress-bar">
+          <div className="timing-container">
+            <p>{timeCalculation(secondsElapsed)}</p>
+          </div>
+          {/* <div className="progress-bar" ref={progressRef}>
             <div
               className="progress-ball"
-              style={{ left: `${(240 / duration) * secondsElapsed}px` }}
+              style={{ left: `${(250 / duration) * secondsElapsed}px` }}
+            />
+          </div> */}
+          <div className="progress-bar">
+            <input
+              className="progress-bar-input"
+              type="range"
+              defaultValue="0"
+              min={0}
+              max={duration}
+              ref={progressBar}
+              onChange={() => {
+                if (muted) {
+                  setMuted(false);
+                }
+                audioElement.current.currentTime = progressBar.current.value;
+              }}
             />
           </div>
-          <div
-            className="volume-icon"
-            onClick={() => {
-              setMuted(!muted);
-            }}
-          >
-            {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
+          <div className="volume-container">
+            <div
+              className="mouse-over-container"
+              onMouseEnter={() => {
+                setVolumeShow(true);
+              }}
+              onMouseLeave={() => {
+                setVolumeShow(false);
+              }}
+            >
+              <div
+                className="volume-icon"
+                onClick={() => {
+                  setMuted(!muted);
+                  setVolumeShow(false);
+                  if (muted) {
+                    volumeBar.current.value = 1;
+                  } else {
+                    volumeBar.current.value = 0;
+                  }
+                }}
+              >
+                {!muted ? <VolumeOnIcon /> : <VolumeOffIcon />}
+              </div>
+              <input
+                className="volume-bar"
+                type="range"
+                defaultValue="1"
+                min={0}
+                max={1}
+                step={0.01}
+                ref={volumeBar}
+                orient="vertical"
+                onChange={() => {
+                  audioElement.current.volume = volumeBar.current.value;
+                  if (audioElement.current.volume == 0) {
+                    setMuted(true);
+                  } else {
+                    setMuted(false);
+                  }
+                }}
+                style={volumeShow ? { height: "100px", opacity: 1 } : {}}
+                onMouseLeave={() => {
+                  setVolumeShow(false);
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -138,9 +197,11 @@ const Playback = ({
           ref={audioElement}
           muted={muted}
           src={currentSong.audio}
+          // src="https://docs.google.com/uc?export=download&id=1ykJEHpKls8QyKdfl9x-euv1hrlCNOHL-"
           controlsList="nodownload"
           onTimeUpdate={() => {
             setSecondsElapsed(audioElement.current.currentTime);
+            progressBar.current.value = audioElement.current.currentTime;
           }}
           onEnded={() => {
             if (isShuffled) {
@@ -176,7 +237,7 @@ const MainContainer = styled.div`
     /* margin: auto; */
     text-align: center;
     /* opacity: 0; */
-    transition: all 5s ease;
+    /* transition: all 5s ease; */
     h4 {
       margin-bottom: 4px;
     }
@@ -191,6 +252,7 @@ const MainContainer = styled.div`
       z-index: 100;
     }
     .image-container {
+      margin: auto;
       padding: 15px;
       width: 330px;
       height: 330px;
@@ -203,32 +265,131 @@ const MainContainer = styled.div`
       }
     }
     .progress-container {
+      position: relative;
       display: flex;
-      p {
-        font-size: 14px;
-        margin: 12px 10px 0 0;
-      }
-      .progress-bar {
-        position: relative;
-        margin: 20px auto;
-        width: 250px;
-        height: 2px;
-        border-radius: 2px;
-        background-color: white;
-        .progress-ball {
-          position: absolute;
-          top: -4px;
-          width: 11px;
-          height: 11px;
-          border-radius: 10px;
-          background-color: white;
-        }
-      }
-      .volume-icon {
-        margin: -19px 0 0 10px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+      width: 380px;
+      .timing-container {
+        /* border: 1px solid red; */
+        width: 60px;
         display: flex;
         justify-content: center;
         align-items: center;
+        p {
+          font-size: 14px;
+          /* margin: 14px 10px 0 0; */
+        }
+      }
+      .volume-container {
+        /* border: 1px solid red; */
+        margin: -18px 0 0 7px;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .volume-bar {
+        transition: all 1s ease;
+        position: absolute;
+        right: 13px;
+        bottom: 35px;
+        height: 0px;
+        opacity: 0;
+        width: 10px;
+        cursor: pointer;
+        writing-mode: bt-lr;
+        -webkit-appearance: slider-vertical;
+        z-index: 5;
+        /* display: none; */
+      }
+      .volume-icon {
+        z-index: 10;
+      }
+      .progress-bar {
+        input[type="range"] {
+          -webkit-appearance: none;
+          /* overflow: hidden; */
+          margin: 18px 0;
+          width: 275px;
+          border-radius: 5px;
+          /* background: #9a905d; */
+        }
+        input[type="range"]:focus {
+          outline: none;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 8.4px;
+          cursor: pointer;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          background: #a5a5a5;
+          border-radius: 5px;
+          border: 0.2px solid #010101;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+          height: 16px;
+          width: 16px;
+          border-radius: 10px;
+          background: #ffffff;
+          cursor: pointer;
+          -webkit-appearance: none;
+          margin-top: -4px;
+        }
+        input[type="range"]:focus::-webkit-slider-runnable-track {
+          background: #a5a5a5;
+        }
+        input[type="range"]::-moz-range-track {
+          width: 100%;
+          height: 8.4px;
+          cursor: pointer;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+          background: #a5a5a5;
+          border-radius: 5px;
+          border: 0.2px solid #010101;
+        }
+        input[type="range"]::-moz-range-thumb {
+          height: 16px;
+          width: 16px;
+          border-radius: 10px;
+          background: #ffffff;
+          cursor: pointer;
+        }
+        input[type="range"]::-ms-track {
+          width: 100%;
+          height: 8.4px;
+          cursor: pointer;
+          background: transparent;
+          border-color: transparent;
+          border-width: 16px 0;
+          color: transparent;
+        }
+        input[type="range"]::-ms-fill-lower {
+          background: #a5a5a5;
+          border: 0.2px solid #010101;
+          border-radius: 5px;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+        input[type="range"]::-ms-fill-upper {
+          background: #a5a5a5;
+          border: 0.2px solid #010101;
+          border-radius: 5px;
+          box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+        }
+        input[type="range"]::-ms-thumb {
+          height: 16px;
+          width: 16px;
+          border-radius: 10px;
+          background: #ffffff;
+          cursor: pointer;
+        }
+        input[type="range"]:focus::-ms-fill-lower {
+          background: #a5a5a5;
+        }
+        input[type="range"]:focus::-ms-fill-upper {
+          background: #a5a5a5;
+        }
       }
     }
     .controls {
@@ -238,6 +399,7 @@ const MainContainer = styled.div`
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      margin-top: -10px;
       div {
         cursor: pointer;
       }
