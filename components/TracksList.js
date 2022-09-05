@@ -152,7 +152,7 @@ const TracksListContainer = styled.div`
     width: 330px;
     max-height: 650px;
   }
-  @media screen and (max-height: 843px) {
+  @media screen and (max-height: 843px) and (max-width: 768px) {
     height: 155px;
   }
   .options-section {
