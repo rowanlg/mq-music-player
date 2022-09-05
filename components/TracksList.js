@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { SettingsIcon, XIcon } from "./Icons";
 
 const TracksList = ({
   tracks,
@@ -9,15 +10,13 @@ const TracksList = ({
   setCurrentSong,
   setSecondsElapsed,
 }) => {
+  const [optionsOpen, setOptionsOpen] = React.useState(false);
   const tracksList = tracks.map((item, index) => {
     const playIcon = () => {
       return (
         <svg
-          style={
-            tracks.indexOf(currentSong) == index
-              ? { opacity: 1 }
-              : { opacity: 0 }
-          }
+          className="play-icon"
+          style={tracks.indexOf(currentSong) === index ? { opacity: 1 } : {}}
           width="16"
           height="17"
           viewBox="0 0 16 17"
@@ -71,7 +70,11 @@ const TracksList = ({
             onClick={() => {
               setCurrentSong(tracks[index]);
               setSecondsElapsed(0);
-              setIsPlaying(true);
+              if (currentSong == tracks[index]) {
+                setIsPlaying(!isPlaying);
+              } else {
+                setIsPlaying(true);
+              }
             }}
           >
             <img
@@ -100,7 +103,29 @@ const TracksList = ({
   });
   return (
     <TracksListContainer>
-      <h1>Library</h1>
+      <div
+        className="options-section"
+        style={optionsOpen ? { width: "330px", opacity: 1 } : {}}
+      >
+        <p>These are your options</p>
+        <div
+          onClick={() => {
+            setOptionsOpen(false);
+          }}
+        >
+          <XIcon />
+        </div>
+      </div>
+      <div className="title-section">
+        <h1>Library</h1>
+        <div
+          onClick={() => {
+            setOptionsOpen(true);
+          }}
+        >
+          <SettingsIcon />
+        </div>
+      </div>
       {tracksList}
     </TracksListContainer>
   );
@@ -112,13 +137,46 @@ export default TracksList;
 
 const TracksListContainer = styled.div`
   /* border: 1px solid red; */
-  width: 300px;
+  position: relative;
+  max-width: 500px;
+  width: 80vw;
+  height: 100%;
+  max-height: 330px;
   background-color: #000000;
   padding: 5px 30px;
   overflow-y: scroll;
-  max-height: 550px;
   border-radius: 5px;
-  margin: 0;
+  border: 1px solid #1e1e1e;
+  margin-top: 2vh;
+  @media screen and (min-width: 768px) {
+    width: 330px;
+    max-height: 650px;
+  }
+  @media screen and (max-height: 843px) {
+    height: 155px;
+  }
+  .options-section {
+    position: fixed;
+    width: 0;
+    opacity: 0;
+    height: 650px;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 50;
+    svg {
+      cursor: pointer;
+    }
+  }
+
+  .title-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    svg {
+      cursor: pointer;
+      /* z-index: 51; */
+    }
+  }
 `;
 
 const TrackSection = styled.div`
@@ -140,7 +198,7 @@ const TrackSection = styled.div`
     cursor: pointer;
     svg {
       grid-area: 1 / 1 / 2 / 2;
-      z-index: 100;
+      z-index: 40;
       margin: auto;
       opacity: 0;
       transition: all 0.3s linear;

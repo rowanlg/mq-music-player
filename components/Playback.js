@@ -244,7 +244,7 @@ const MainContainer = styled.div`
   grid-area: main;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   .main-content {
     /* margin: auto; */
     text-align: center;
@@ -264,16 +264,26 @@ const MainContainer = styled.div`
       z-index: 100;
     }
     .image-container {
+      @media screen and (min-width: 768px) {
+        width: 330px;
+        height: 330px;
+      }
       margin: auto;
       padding: 15px;
-      width: 330px;
-      height: 330px;
+      width: 250px;
+      height: 250px;
       border-radius: 5px;
       background-color: #000000;
+      border: 1px solid #1e1e1e;
       img {
-        width: 300px;
-        height: 300px;
+        width: 220px;
+        height: 220px;
         border-radius: 5px;
+        /* border: 1px solid #1e1e1e; */
+        @media screen and (min-width: 768px) {
+          width: 300px;
+          height: 300px;
+        }
       }
     }
     .progress-container {
@@ -296,7 +306,7 @@ const MainContainer = styled.div`
       }
       .volume-container {
         /* border: 1px solid red; */
-        margin: -21px 0 0 7px;
+        margin: -16px 0 0 7px;
         width: 40px;
         height: 60px;
         display: flex;
@@ -314,7 +324,7 @@ const MainContainer = styled.div`
         cursor: pointer;
         writing-mode: bt-lr;
         -webkit-appearance: slider-vertical;
-        appearance: slider-vertical;
+        /* appearance: slider-vertical; */
         z-index: 5;
         background: #a5a5a5;
         /* display: none; */
@@ -324,9 +334,13 @@ const MainContainer = styled.div`
       }
       .progress-bar {
         input[type="range"] {
+          @media screen and (min-width: 768px) {
+            width: 275px;
+          }
           -webkit-appearance: none;
           appearance: none;
-          width: 275px;
+          width: 50vw;
+          max-width: 225px;
           border-radius: 5px;
           cursor: pointer;
           background: transparent;

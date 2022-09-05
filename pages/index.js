@@ -16,6 +16,7 @@ export default function Home() {
   const [loading, setLoading] = React.useState(true);
   const [tracks, setTracks] = React.useState([]);
   const [isShuffled, setIsShuffled] = React.useState(false);
+  const [mobile, setMobile] = React.useState(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +41,23 @@ export default function Home() {
     }
   }, [tracks]);
 
+  React.useEffect(() => {
+    // let mobileQuery = window.matchMedia("(max-width: 744px)");
+    // mobileQuery.addEventListener(setMobile, "");
+    // console.log(mobile);
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth < 768) {
+        setMobile(true);
+      } else {
+        setMobile(false);
+      }
+    });
+
+    // return () => window.removeEventListener(setMobile);
+  }, []);
+  // console.log(mobile);
+
   return (
     <Container>
       <Head>
@@ -49,8 +67,16 @@ export default function Home() {
       </Head>
       {loading ? null : (
         <Main>
+          <div className="logo-container">
+            <Image
+              className="logo"
+              src="/logo.png"
+              alt="logo"
+              width={mobile ? 150 : 200}
+              height={mobile ? 150 : 200}
+            />
+          </div>
           <div className="side-container">
-            <Image src="/logo.png" alt="logo" width="200" height="200" />
             <TracksList
               tracks={tracks}
               isPlaying={isPlaying}
@@ -74,60 +100,99 @@ export default function Home() {
             tracks={tracks}
             isShuffled={isShuffled}
             setIsShuffled={setIsShuffled}
+            mobile={mobile}
           />
         </Main>
       )}
       <Footer>
         {/* Built by{" "} */}
-        <a
-          href="https://r0o.dev"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="roo-dev"
-        >
-          <Image src="/roodev.png" alt="r0o.dev" width="51px" height="21px" />
-        </a>
+        <div className="roo-dev">
+          <p>Built by</p>
+          <a href="https://r0o.dev" target="_blank" rel="noopener noreferrer">
+            <Image src="/roodev.png" alt="r0o.dev" width="51px" height="21px" />
+          </a>
+        </div>
       </Footer>
     </Container>
   );
 }
 
 const Footer = styled.footer`
-  border-top: 1px solid #cacaca;
-  background-color: #000;
+  /* border-top: 1px solid #1e1e1e; */
+  /* background-color: #000; */
   text-align: center;
-  height: 7vh;
+  height: 6vh;
   width: 100vw;
-  padding-top: 10px;
+  padding-top: 15px;
   font-size: 12px;
   .roo-dev {
     display: flex;
     justify-content: center;
     padding-top: 5px;
+    p {
+      margin-top: 3px;
+      margin-right: 5px;
+      opacity: 0.8;
+    }
+    img {
+      opacity: 0.8;
+    }
+    img:hover {
+      opacity: 1;
+    }
   }
 `;
 
 const Main = styled.main`
-  padding: 0 2rem;
-  max-width: 800px;
-  margin: auto;
-  min-height: 93vh;
-  display: grid;
-  grid-template-columns: auto 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  grid-template-areas:
-    "side main main main"
-    "side main main main"
-    "side main main main"
-    "side main main main";
+  @media screen and (min-width: 768px) {
+    padding: 0 2rem;
+    max-width: 800px;
+    margin: auto;
+    height: 94vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      ". logo logo ."
+      "side side main main"
+      "side side main main"
+      "side side main main";
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 94vh;
+  padding: 1rem 0;
 
   .side-container {
     grid-area: side;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* height: 100%; */
+    @media screen and (max-width: 767px) {
+      order: 2;
+      display: block;
+    }
+  }
+  .logo-container {
+    margin: auto;
+    grid-area: logo;
+    display: none;
+    /* margin-bottom: -1rem; */
+    /* border: 1px solid red; */
+    @media screen and (min-width: 768px) {
+      display: block;
+    }
   }
 `;
 
 const Container = styled.div`
+  @media screen and (max-width: 767px) {
+    height: 100vh;
+  }
   max-height: 100vh;
   height: 100vh;
   font-family: "Montserrat";
