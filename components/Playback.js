@@ -27,6 +27,7 @@ const Playback = ({
   tracks,
   isShuffled,
   setIsShuffled,
+  finalTrackList,
 }) => {
   const audioElement = React.useRef(null);
   const progressBar = React.useRef(null);
@@ -35,6 +36,7 @@ const Playback = ({
   const [volumeShow, setVolumeShow] = React.useState(false);
   const [volumeValue, setVolumeValue] = React.useState(1);
 
+  ////////// Set audio element to play and load duration /////////
   React.useEffect(() => {
     isPlaying ? audioElement.current.play() : audioElement.current.pause();
     const timeout = setTimeout(() => {
@@ -44,14 +46,16 @@ const Playback = ({
     return () => clearTimeout(timeout);
   }, [isPlaying, currentSong]);
 
+  ////////// Set Shuffled tracks //////////
   React.useEffect(() => {
     setShuffledTracks(
-      [...tracks].sort(function (a, b) {
+      [...finalTrackList].sort(function (a, b) {
         return 0.5 - Math.random();
       })
     );
   }, [isShuffled]);
 
+  ////////// Seconds to minutes & seconds //////////
   function timeCalculation(seconds) {
     const m = Math.floor((seconds % 3600) / 60).toString();
     const s = Math.floor(seconds % 60)
@@ -171,8 +175,10 @@ const Playback = ({
             setCurrentSong={setCurrentSong}
             setDuration={setDuration}
             tracks={tracks}
+            secondsElapsed={secondsElapsed}
             setSecondsElapsed={setSecondsElapsed}
             audioElement={audioElement}
+            finalTrackList={finalTrackList}
           />
           <div
             onClick={() => {
@@ -187,9 +193,9 @@ const Playback = ({
             currentSong={currentSong}
             setCurrentSong={setCurrentSong}
             setDuration={setDuration}
-            tracks={tracks}
             setSecondsElapsed={setSecondsElapsed}
             audioElement={audioElement}
+            finalTrackList={finalTrackList}
           />
           <div
             className="shuffle-button"
@@ -217,7 +223,11 @@ const Playback = ({
           }}
           onEnded={() => {
             if (isShuffled) {
-              setCurrentSong(tracks[Math.floor(Math.random() * tracks.length)]);
+              setCurrentSong(
+                shuffledTracks[
+                  Math.floor(Math.random() * shuffledTracks.length)
+                ]
+              );
               setSecondsElapsed(0);
               setDuration(audioElement.current.duration);
             } else {
@@ -246,10 +256,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   .main-content {
-    /* margin: auto; */
     text-align: center;
-    /* opacity: 0; */
-    /* transition: all 5s ease; */
     h4 {
       margin-bottom: 4px;
     }
@@ -306,7 +313,7 @@ const MainContainer = styled.div`
       }
       .volume-container {
         /* border: 1px solid red; */
-        margin: -16px 0 0 7px;
+        margin: -16px 0 0 10px;
         width: 40px;
         height: 60px;
         display: flex;
@@ -316,7 +323,7 @@ const MainContainer = styled.div`
       .volume-bar {
         transition: all 1s ease;
         position: absolute;
-        right: 13px;
+        right: 33px;
         bottom: 35px;
         height: 0px;
         opacity: 0;

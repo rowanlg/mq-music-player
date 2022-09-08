@@ -7,34 +7,49 @@ const BackButton = ({
   currentSong,
   setCurrentSong,
   setDuration,
+  secondsElapsed,
   setSecondsElapsed,
-  tracks,
   audioElement,
+  finalTrackList,
 }) => {
   return (
     <div
       onClick={() => {
         if (isShuffled) {
-          if (shuffledTracks.indexOf(currentSong) > 0) {
-            setCurrentSong(
-              shuffledTracks[shuffledTracks.indexOf(currentSong) - 1]
-            );
+          if (secondsElapsed > 10) {
             setSecondsElapsed(0);
+            audioElement.current.currentTime = 0;
             setDuration(audioElement.current.duration);
           } else {
-            setCurrentSong(shuffledTracks[tracks.length - 1]);
-            setSecondsElapsed(0);
-            setDuration(audioElement.current.duration);
+            if (shuffledTracks.indexOf(currentSong) > 0) {
+              setCurrentSong(
+                shuffledTracks[shuffledTracks.indexOf(currentSong) - 1]
+              );
+              setSecondsElapsed(0);
+              setDuration(audioElement.current.duration);
+            } else {
+              setCurrentSong(shuffledTracks[finalTrackList.length - 1]);
+              setSecondsElapsed(0);
+              setDuration(audioElement.current.duration);
+            }
           }
         } else {
-          if (tracks.indexOf(currentSong) > 0) {
-            setCurrentSong(tracks[tracks.indexOf(currentSong) - 1]);
+          if (secondsElapsed > 10) {
             setSecondsElapsed(0);
+            audioElement.current.currentTime = 0;
             setDuration(audioElement.current.duration);
           } else {
-            setCurrentSong(tracks[tracks.length - 1]);
-            setSecondsElapsed(0);
-            setDuration(audioElement.current.duration);
+            if (finalTrackList.indexOf(currentSong) > 0) {
+              setCurrentSong(
+                finalTrackList[finalTrackList.indexOf(currentSong) - 1]
+              );
+              setSecondsElapsed(0);
+              setDuration(audioElement.current.duration);
+            } else {
+              setCurrentSong(finalTrackList[finalTrackList.length - 1]);
+              setSecondsElapsed(0);
+              setDuration(audioElement.current.duration);
+            }
           }
         }
       }}

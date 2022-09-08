@@ -8,14 +8,15 @@ const NextButton = ({
   setCurrentSong,
   setDuration,
   setSecondsElapsed,
-  tracks,
   audioElement,
+  finalTrackList,
 }) => {
+  console.log("Final tracklist: ", finalTrackList);
   return (
     <div
       onClick={() => {
         if (isShuffled) {
-          if (shuffledTracks.indexOf(currentSong) < tracks.length - 1) {
+          if (shuffledTracks.indexOf(currentSong) < finalTrackList.length - 1) {
             setCurrentSong(
               shuffledTracks[shuffledTracks.indexOf(currentSong) + 1]
             );
@@ -27,12 +28,14 @@ const NextButton = ({
             setDuration(audioElement.current.duration);
           }
         } else {
-          if (tracks.indexOf(currentSong) < tracks.length - 1) {
-            setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
+          if (finalTrackList.indexOf(currentSong) < finalTrackList.length - 1) {
+            setCurrentSong(
+              finalTrackList[finalTrackList.indexOf(currentSong) + 1]
+            );
             setSecondsElapsed(0);
             setDuration(audioElement.current.duration);
           } else {
-            setCurrentSong(tracks[0]);
+            setCurrentSong(finalTrackList[0]);
             setSecondsElapsed(0);
             setDuration(audioElement.current.duration);
           }

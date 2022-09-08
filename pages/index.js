@@ -17,7 +17,9 @@ export default function Home() {
   const [tracks, setTracks] = React.useState([]);
   const [isShuffled, setIsShuffled] = React.useState(false);
   const [mobile, setMobile] = React.useState(false);
+  const [finalTrackList, setFinalTrackList] = React.useState([]);
 
+  ///////// Fetching data from Firestore /////////
   React.useEffect(() => {
     const fetchData = async () => {
       const songs = [];
@@ -34,6 +36,7 @@ export default function Home() {
     fetchData();
   }, []);
 
+  ///////// Load Current song when tracks have loaded /////////
   React.useEffect(() => {
     if (tracks.length > 0) {
       setCurrentSong(tracks[0]);
@@ -41,22 +44,18 @@ export default function Home() {
     }
   }, [tracks]);
 
+  ///////// Event listener for resizing NEXT Image /////////
   React.useEffect(() => {
-    // let mobileQuery = window.matchMedia("(max-width: 744px)");
-    // mobileQuery.addEventListener(setMobile, "");
-    // console.log(mobile);
-
-    window.addEventListener("resize", function () {
+    function handleResize() {
       if (window.innerWidth < 768) {
         setMobile(true);
       } else {
         setMobile(false);
       }
-    });
-
-    // return () => window.removeEventListener(setMobile);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-  // console.log(mobile);
 
   return (
     <Container>
@@ -73,7 +72,7 @@ export default function Home() {
               src="/logo.png"
               alt="logo"
               width={mobile ? 150 : 200}
-              height={mobile ? 150 : 200}
+              height={mobile ? 90 : 130}
             />
           </div>
           <div className="side-container">
@@ -84,6 +83,8 @@ export default function Home() {
               currentSong={currentSong}
               setCurrentSong={setCurrentSong}
               setSecondsElapsed={setSecondsElapsed}
+              finalTrackList={finalTrackList}
+              setFinalTrackList={setFinalTrackList}
             />
           </div>
           <Playback
@@ -101,11 +102,11 @@ export default function Home() {
             isShuffled={isShuffled}
             setIsShuffled={setIsShuffled}
             mobile={mobile}
+            finalTrackList={finalTrackList}
           />
         </Main>
       )}
       <Footer>
-        {/* Built by{" "} */}
         <div className="roo-dev">
           <p>Built by</p>
           <a href="https://r0o.dev" target="_blank" rel="noopener noreferrer">
@@ -118,8 +119,6 @@ export default function Home() {
 }
 
 const Footer = styled.footer`
-  /* border-top: 1px solid #1e1e1e; */
-  /* background-color: #000; */
   text-align: center;
   height: 6vh;
   width: 100vw;
@@ -151,10 +150,11 @@ const Main = styled.main`
     height: 94vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
       ". logo logo ."
+      "side side main main"
       "side side main main"
       "side side main main"
       "side side main main";
@@ -181,6 +181,8 @@ const Main = styled.main`
     margin: auto;
     grid-area: logo;
     display: none;
+    padding-top: 20px;
+    margin-bottom: -4rem;
     /* margin-bottom: -1rem; */
     /* border: 1px solid red; */
     @media screen and (min-width: 768px) {
