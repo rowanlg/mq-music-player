@@ -309,7 +309,9 @@ const MainContainer = styled.div`
       justify-content: center;
       align-items: center;
       margin-top: 10px;
-      width: 380px;
+      @media screen and (min-width: 400px) {
+        width: 380px;
+      }
       .timing-container {
         /* border: 1px solid red; */
         width: 60px;
