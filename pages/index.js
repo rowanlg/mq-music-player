@@ -18,6 +18,7 @@ export default function Home() {
   const [isShuffled, setIsShuffled] = React.useState(false);
   const [mobile, setMobile] = React.useState(false);
   const [finalTrackList, setFinalTrackList] = React.useState([]);
+  const [repeatOn, setRepeatOn] = React.useState(true);
 
   ///////// Fetching data from Firestore /////////
   React.useEffect(() => {
@@ -103,6 +104,8 @@ export default function Home() {
             setIsShuffled={setIsShuffled}
             mobile={mobile}
             finalTrackList={finalTrackList}
+            repeatOn={repeatOn}
+            setRepeatOn={setRepeatOn}
           />
         </Main>
       )}

@@ -11,7 +11,6 @@ const NextButton = ({
   audioElement,
   finalTrackList,
 }) => {
-  console.log("Final tracklist: ", finalTrackList);
   return (
     <div
       onClick={() => {

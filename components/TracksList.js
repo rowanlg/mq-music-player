@@ -91,6 +91,9 @@ const TracksList = ({
       }
     });
 
+  console.log("filteredTrackList: ", filteredTrackList);
+  console.log("Final tracklist: ", finalTrackList);
+
   /////// Set filter on if options are selected ///////
   React.useEffect(() => {
     if (filterCount > 0) {
@@ -104,7 +107,7 @@ const TracksList = ({
   /////// Set final tracklist to filtered or unfiltered ///////
   React.useEffect(() => {
     setFinalTrackList(isFiltered ? filteredTracks : tracks);
-  }, [isFiltered]);
+  }, [isFiltered, filteredTracks]);
 
   ////////// Items in tracklist //////////
   const tracksList = finalTrackList.map((item, index) => {
@@ -241,7 +244,7 @@ const TracksList = ({
               ? { marginLeft: "5px", color: "#acacac" }
               : { marginLeft: "5px" }
           }
-          for={item}
+          htmlFor={item}
         >
           {item}
         </label>
@@ -285,6 +288,7 @@ const TracksList = ({
               ? { marginLeft: "5px", color: "#acacac" }
               : { marginLeft: "5px" }
           }
+          htmlFor={item}
         >
           {item}
         </label>

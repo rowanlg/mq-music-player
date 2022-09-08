@@ -28,6 +28,8 @@ const Playback = ({
   isShuffled,
   setIsShuffled,
   finalTrackList,
+  repeatOn,
+  setRepeatOn,
 }) => {
   const audioElement = React.useRef(null);
   const progressBar = React.useRef(null);
@@ -165,7 +167,13 @@ const Playback = ({
 
         {/* //////// Controls section //////// */}
         <div className="controls">
-          <div className="repeat-button">
+          <div
+            style={repeatOn ? { opacity: 1 } : { opacity: 0.6 }}
+            className="repeat-button"
+            onClick={() => {
+              setRepeatOn(!repeatOn);
+            }}
+          >
             <RepeatIcon />
           </div>
           <BackButton
@@ -201,7 +209,7 @@ const Playback = ({
             className="shuffle-button"
             onClick={() => {
               setIsShuffled(!isShuffled);
-              console.log(isShuffled);
+              // console.log(isShuffled);
             }}
             style={isShuffled ? { opacity: 1 } : { opacity: 0.6 }}
           >
@@ -222,23 +230,25 @@ const Playback = ({
             progressBar.current.value = audioElement.current.currentTime;
           }}
           onEnded={() => {
-            if (isShuffled) {
-              setCurrentSong(
-                shuffledTracks[
-                  Math.floor(Math.random() * shuffledTracks.length)
-                ]
-              );
-              setSecondsElapsed(0);
-              setDuration(audioElement.current.duration);
-            } else {
-              if (tracks.indexOf(currentSong) < tracks.length - 1) {
-                setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
+            if (repeatOn) {
+              if (isShuffled) {
+                setCurrentSong(
+                  shuffledTracks[
+                    Math.floor(Math.random() * shuffledTracks.length)
+                  ]
+                );
                 setSecondsElapsed(0);
                 setDuration(audioElement.current.duration);
               } else {
-                setCurrentSong(tracks[0]);
-                setSecondsElapsed(0);
-                setDuration(audioElement.current.duration);
+                if (tracks.indexOf(currentSong) < tracks.length - 1) {
+                  setCurrentSong(tracks[tracks.indexOf(currentSong) + 1]);
+                  setSecondsElapsed(0);
+                  setDuration(audioElement.current.duration);
+                } else {
+                  setCurrentSong(tracks[0]);
+                  setSecondsElapsed(0);
+                  setDuration(audioElement.current.duration);
+                }
               }
             }
           }}
